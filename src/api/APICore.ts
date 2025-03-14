@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
-const API_KEY = import.meta.env.VITE_API_WEATHER_KEY;
+const API_URL = import.meta.env.VITE_API_WEATHER_URL;
 
-const request = axios.create({
-  baseURL: "https://api.openweathermap.org/data/2.5",
-});
-console.log(API_KEY);
+const create = (baseURL: string, options: AxiosRequestConfig) => {
+  const instance = axios.create(Object.assign({ baseURL }, options));
+  return instance;
+};
 
-export { request };
+export const instance = create(API_URL, {});

@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { getWeatherInfo } from "../../api/WeatherAPI";
 
 const WeatherComponent = () => {
   const [location, setLocation] = useState<{ lat: number | null; lon: number | null }>({
@@ -6,9 +7,17 @@ const WeatherComponent = () => {
     lon: null,
   });
 
-  useEffect(() => {
-    console.log(navigator.geolocation);
+  // const [weatherInfo, setWeatherInfo] = useState<any>(null);
 
+  const getWeatherInfoData = useCallback(async () => {
+    if (location.lat && location.lon) {
+      const res = await getWeatherInfo({ lat: location.lat, lon: location.lon });
+      console.log(res);
+    }
+  }, [location]);
+
+  // 위치 정보 받아오기
+  useEffect(() => {
     if (!navigator.geolocation) {
       console.error("Geolocation is not supported by your browser.");
       return;
@@ -16,8 +25,6 @@ const WeatherComponent = () => {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position);
-
         setLocation({
           lat: position.coords.latitude,
           lon: position.coords.longitude,
@@ -28,6 +35,10 @@ const WeatherComponent = () => {
       },
     );
   }, []);
+
+  useEffect(() => {
+    getWeatherInfoData();
+  }, [getWeatherInfoData, location]);
 
   return (
     <div>
