@@ -1,4 +1,4 @@
-import { useWeather } from "../../context/WeatherContext";
+import { useWeather } from "../../hooks/useWeather";
 
 const iconURL = "https://openweathermap.org/img/wn/";
 

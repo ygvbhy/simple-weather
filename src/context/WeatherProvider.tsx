@@ -1,10 +1,9 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { WeatherInfo } from "../types";
 import { getWeatherInfo } from "../api/WeatherAPI";
+import { WeatherContext } from "./WeatherContext";
 
-const WeatherContext = createContext<WeatherInfo | null>(null);
-
-export const WeatherContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const WeatherProvider = ({ children }: { children: React.ReactNode }) => {
   const [weatherInfo, setWeatherInfo] = useState<WeatherInfo | null>(null);
 
   useEffect(() => {
@@ -28,12 +27,4 @@ export const WeatherContextProvider = ({ children }: { children: React.ReactNode
   }, []);
 
   return <WeatherContext.Provider value={weatherInfo}>{children}</WeatherContext.Provider>;
-};
-
-export const useWeather = () => {
-  return useContext(WeatherContext);
-  // if (!context) {
-  // throw new Error("useWeather must be used within a WeatherContextProvider");
-  // }
-  // return context;
 };

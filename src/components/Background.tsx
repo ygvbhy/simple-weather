@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useWeather } from "../context/WeatherContext";
+import { useWeather } from "../hooks/useWeather";
 import { weatherType } from "../data/WeatherCodeData";
 
 const Background = () => {

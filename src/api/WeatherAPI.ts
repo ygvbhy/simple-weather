@@ -1,7 +1,6 @@
 import { instance } from "./APICore";
 import { LocationInfo, WeatherInfo } from "../types";
 
-const API_URL = import.meta.env.VITE_API_WEATHER_URL;
 const API_KEY = import.meta.env.VITE_API_WEATHER_KEY;
 
 export const getWeatherInfo = async (locationInfo: LocationInfo): Promise<WeatherInfo> => {
@@ -12,7 +11,7 @@ export const getWeatherInfo = async (locationInfo: LocationInfo): Promise<Weathe
     units: "metric",
   };
   try {
-    const res = await instance.get(API_URL, { params });
+    const res = await instance.get("http://api.openweathermap.org/data/2.5/weather", { params });
     return res.data;
   } catch (error) {
     console.error(error);
