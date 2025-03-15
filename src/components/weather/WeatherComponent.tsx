@@ -1,49 +1,28 @@
-import { useState, useEffect, useCallback } from "react";
-import { getWeatherInfo } from "../../api/WeatherAPI";
+import { useWeather } from "../../context/WeatherContext";
+
+const iconURL = "https://openweathermap.org/img/wn/";
 
 const WeatherComponent = () => {
-  const [location, setLocation] = useState<{ lat: number | null; lon: number | null }>({
-    lat: null,
-    lon: null,
-  });
+  const weatherInfo = useWeather();
 
-  // const [weatherInfo, setWeatherInfo] = useState<any>(null);
+  const setWeatherMain = () => {
+    if (weatherInfo) return weatherInfo.name + ", " + weatherInfo.sys.country;
+    else return "";
+  };
 
-  const getWeatherInfoData = useCallback(async () => {
-    if (location.lat && location.lon) {
-      const res = await getWeatherInfo({ lat: location.lat, lon: location.lon });
-      console.log(res);
-    }
-  }, [location]);
-
-  // 위치 정보 받아오기
-  useEffect(() => {
-    if (!navigator.geolocation) {
-      console.error("Geolocation is not supported by your browser.");
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLocation({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude,
-        });
-      },
-      (error) => {
-        console.error("Error getting location:", error);
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    getWeatherInfoData();
-  }, [getWeatherInfoData, location]);
+  const setWeatherTemp = () => {
+    if (weatherInfo)
+      return weatherInfo?.weather[0].main + ", " + Math.round(weatherInfo?.main.temp ?? 0) + "°C";
+    else return "";
+  };
 
   return (
-    <div>
-      <div>{location.lat}</div>
-      <div>{location.lon}</div>
+    <div className="flex items-center gap-2">
+      <img src={`${iconURL}${weatherInfo?.weather[0].icon}@2x.png`} alt="weatherIcon" />
+      <div>
+        <div className="text-2xl">{setWeatherTemp()}</div>
+        <div>{setWeatherMain()}</div>
+      </div>
     </div>
   );
 };
