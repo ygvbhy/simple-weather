@@ -11,7 +11,7 @@ export const getWeatherInfo = async (locationInfo: LocationInfo): Promise<Weathe
     units: "metric",
   };
   try {
-    const res = await instance.get("http://api.openweathermap.org/data/2.5/weather", { params });
+    const res = await instance.get("https://api.openweathermap.org/data/2.5/weather", { params });
     return res.data;
   } catch (error) {
     console.error(error);
