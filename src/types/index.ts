@@ -1,3 +1,11 @@
+export interface WeatherContextType {
+  weatherInfo: WeatherInfo | null;
+  dustInfo: {
+    data: DustInfo;
+    status: number;
+  } | null;
+}
+
 export interface LocationInfo {
   lat: number;
   lon: number;

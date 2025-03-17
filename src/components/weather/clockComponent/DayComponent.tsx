@@ -1,6 +1,8 @@
-const DayComponent = () => {
-  const day = new Date();
+import { useEffect } from "react";
 
+let day = new Date();
+
+const DayComponent = () => {
   const setDay = () => {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     return days[day.getDay()];
@@ -12,6 +14,14 @@ const DayComponent = () => {
     }
     return day.getDate();
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      day = new Date();
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <>

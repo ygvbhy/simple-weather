@@ -12,12 +12,12 @@ const WeatherComponent = () => {
 
   const setWeatherTemp = () => {
     if (weatherInfo)
-      return weatherInfo?.weather[0].main + ", " + Math.round(weatherInfo?.main.temp ?? 0) + "°C";
+      return weatherInfo.weather[0].main + ", " + Math.round(weatherInfo.main.temp ?? 0) + "°C";
     else return "";
   };
 
   const setWeatherIcon = () => {
-    if (weatherInfo) return `${iconURL}${weatherInfo?.weather[0].icon}@2x.png`;
+    if (weatherInfo) return `${iconURL}${weatherInfo.weather[0].icon}@2x.png`;
     else return "";
   };
 

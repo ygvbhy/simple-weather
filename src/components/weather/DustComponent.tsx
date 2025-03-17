@@ -1,18 +1,7 @@
-import { useEffect, useState } from "react";
-import { getDustInfo } from "../../api/DustAPI";
-import { DustInfo } from "../../types";
+import { useDust } from "../../hooks/useWeather";
 
 const DustComponent = () => {
-  const [dustInfo, setDustInfo] = useState<{ data: DustInfo; status: number }>();
-
-  const fetchDustInfo = async () => {
-    const dustInfoData: { data: DustInfo; status: number } = await getDustInfo();
-    if (dustInfoData) setDustInfo(dustInfoData);
-  };
-
-  useEffect(() => {
-    fetchDustInfo();
-  }, []);
+  const dustInfo = useDust();
 
   const setDustNum = () => {
     if (dustInfo) {
@@ -28,7 +17,10 @@ const DustComponent = () => {
   return (
     <div>
       {dustInfo ? (
-        <div className="text-4xl">{setDustNum()}</div>
+        <>
+          <div className="text-4xl">{setDustNum()}</div>
+          <div className="text-center text-2xl mt-2">{dustInfo.data.aqi}</div>
+        </>
       ) : (
         <div className="text-4xl">Loading...</div>
       )}
