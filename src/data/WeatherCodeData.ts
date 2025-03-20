@@ -1,3 +1,4 @@
+// 날씨 코드 타입
 export const weatherType = {
   200: "thunderstorm",
   201: "thunderstorm",
@@ -60,4 +61,15 @@ export const weatherType = {
   802: "clouds",
   803: "clouds",
   804: "clouds",
+};
+
+// 날씨 이미지 리스트
+export const weatherImgList = {
+  default: ["default", "default_2", "default_3"],
+  thunderstorm: ["thunderstorm", "thunderstorm_2", "thunderstorm_3"],
+  rain: ["rain", "rain_2", "rain_3"],
+  snow: ["snow", "snow_2", "snow_3"],
+  mist: ["mist", "mist_2", "mist_3"],
+  clear: ["clear", "clear_2", "clear_3"],
+  clouds: ["clouds", "clouds_2", "clouds_3"],
 };
