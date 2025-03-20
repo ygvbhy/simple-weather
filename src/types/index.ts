@@ -94,7 +94,7 @@ interface V {
   v: number;
 }
 
-export interface Time {
+interface Time {
   s: string;
   tz: string;
   v: number;

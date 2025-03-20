@@ -58,7 +58,7 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
       getDataSet();
 
       // 이후 1시간마다 실행되는 interval 설정
-      const interval = setInterval(getLocationInfo, 36000000);
+      const interval = setInterval(getDataSet, 3600000);
 
       return () => clearInterval(interval);
     }, timeUntilNextHour);
