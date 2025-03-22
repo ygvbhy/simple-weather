@@ -100,3 +100,9 @@ interface Time {
   v: number;
   iso: string;
 }
+
+export interface BookMark {
+  id: number;
+  name: string;
+  url: string;
+}
