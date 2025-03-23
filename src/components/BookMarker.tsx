@@ -10,16 +10,32 @@ const BookMarker = ({
 }) => {
   const [addBookMark, setAddBookMark] = useState({
     name: "",
-    url: "",
+    url: "https://",
     id: 0,
   });
 
   const [bookMarkList, setBookMarkList] = useState<BookMark[]>([]);
 
   const handleAddBookMark = () => {
+    if (addBookMark.name === "" || addBookMark.url === "https://") {
+      alert("Please enter a name and URL");
+      return;
+    }
+    if (!addBookMark.url.includes("https://")) {
+      alert("Please enter a valid URL");
+      return;
+    }
+
     const newBookMark = { ...addBookMark, id: bookMarkList.length };
     localStorage.setItem("bookMark", JSON.stringify([...bookMarkList, newBookMark]));
     setBookMarkList([...bookMarkList, newBookMark]);
+    setAddBookMark({ name: "", url: "https://", id: 0 });
+  };
+
+  const handleDeleteBookMark = (id: number) => {
+    const newBookMarkList = bookMarkList.filter((bookMark) => bookMark.id !== id);
+    localStorage.setItem("bookMark", JSON.stringify(newBookMarkList));
+    setBookMarkList(newBookMarkList);
   };
 
   useEffect(() => {
@@ -70,14 +86,39 @@ const BookMarker = ({
               <a
                 href={bookMark.url}
                 target="_blank"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                className="flex items-center justify-between p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
-                <img
-                  src={`https://www.google.com/s2/favicons?domain=${bookMark.url}`}
-                  alt="북마크 이미지"
-                  className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                />
-                <span className="ms-3">{bookMark.name}</span>
+                <div className="flex items-center">
+                  <img
+                    src={`https://www.google.com/s2/favicons?domain=${bookMark.url}`}
+                    alt="북마크 이미지"
+                    className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                  />
+                  <span className="ms-3">{bookMark.name}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleDeleteBookMark(bookMark.id);
+                  }}
+                  className="text-gray-400 cursor-pointer bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </button>
               </a>
             </li>
           ))}
@@ -96,9 +137,12 @@ const BookMarker = ({
         />
         <input
           className="w-full rounded-full border-1 border-gray-300 p-2 bg-gray-200 text-black px-6 opacity-50 focus:border-gray-500 focus:outline-none mb-3"
-          type="text"
+          type="url"
           placeholder="BookMark URL"
           value={addBookMark.url}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleAddBookMark();
+          }}
           onChange={(e) => {
             setAddBookMark({ ...addBookMark, url: e.target.value });
           }}
