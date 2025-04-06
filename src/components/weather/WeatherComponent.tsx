@@ -21,14 +21,16 @@ const WeatherComponent = () => {
     else return "";
   };
 
-  return (
+  return weatherInfo ? (
     <div className="flex items-center gap-2">
-      {setWeatherIcon() ? <img src={setWeatherIcon()} alt="weatherIcon" /> : <div>Loading...</div>}
+      <img src={setWeatherIcon()} alt="weatherIcon" />
       <div>
         <div className="text-2xl">{setWeatherTemp()}</div>
         <div>{setWeatherMain()}</div>
       </div>
     </div>
+  ) : (
+    <div className="text-2xl">Not Found to weather Information...</div>
   );
 };
 
