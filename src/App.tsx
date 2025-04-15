@@ -1,7 +1,7 @@
 import "./App.css";
 import Background from "./components/Background";
 import Weather from "./components/weather";
-import BookMarkButton from "./components/BookMarkButton";
+import BookMarkButton from "./components/bookmark/BookMarkButton";
 
 function App() {
   return (
