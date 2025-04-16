@@ -5,7 +5,7 @@ import BookMarkButton from "./components/bookmark/BookMarkButton";
 
 function App() {
   return (
-    <section className="relative w-full h-screen">
+    <section className="relative w-full h-screen overflow-hidden">
       <Background />
       <BookMarkButton />
       <Weather />
