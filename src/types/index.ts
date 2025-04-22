@@ -79,18 +79,18 @@ interface City {
 }
 
 interface Iaqi {
-  co: V;
-  h: V;
-  no2: V;
-  o3: V;
-  p: V;
-  pm10: V;
-  pm25: V;
-  so2: V;
+  co: VType;
+  h: VType;
+  no2: VType;
+  o3: VType;
+  p: VType;
+  pm10: VType;
+  pm25: VType;
+  so2: VType;
   idx: number;
 }
 
-interface V {
+interface VType {
   v: number;
 }
 
